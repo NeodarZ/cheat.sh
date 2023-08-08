@@ -92,6 +92,7 @@ _CONFIG = {
     "adapters.mandatory": [
         "search",
         ],
+    "adaptaters.config": {},
     "cache.redis.db": 0,
     "cache.redis.host": "localhost",
     "cache.redis.port": 6379,
