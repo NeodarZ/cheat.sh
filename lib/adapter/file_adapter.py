@@ -58,7 +58,7 @@ class FileRepositoryAdapter(RepositoryAdapter):    #pylint: disable=abstract-met
         Update of the repository.
         """
 
-        return cls.fetch_command
+        return cls.fetch_command()
 
     @classmethod
     def current_state_command(cls):
@@ -75,8 +75,17 @@ class FileRepositoryAdapter(RepositoryAdapter):    #pylint: disable=abstract-met
 
         paths = sorted(Path(local_repository_dir).iterdir(), key=os.path.getmtime, reverse=True)
 
-        # returning the latest modification date
-        return os.path.getmtime(paths[0]) if paths else None
+        return ['stat', '-c', '%Y', max(paths, key=os.path.getctime)] if paths else None
+
+    @classmethod
+    def save_state(cls, state):
+        """
+        Save state `state` of the repository.
+        Must be called after the cache clean up.
+        """
+        local_repository_dir = cls.local_repository_location()
+        state_filename = os.path.join(local_repository_dir, '.cached_revision')
+        open(state_filename, 'wb').write(state)
 
     @classmethod
     def get_updates_list(cls, updated_files_list):

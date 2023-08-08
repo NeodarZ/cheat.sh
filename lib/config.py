@@ -87,7 +87,7 @@ _CONFIG = {
         "rfc",
         "oeis",
         "chmod",
-        "mytest"
+        "local"
         ],
     "adapters.mandatory": [
         "search",
@@ -130,7 +130,7 @@ _CONFIG = {
         ("", "late.nz"),
         ("", "fosdem"),
         ("", "learnxiny"),
-        ("", "mytest"),
+        ("", "local"),
     ],
     "routing.post": [
         ("^[^/ +]*$", "unknown"),
